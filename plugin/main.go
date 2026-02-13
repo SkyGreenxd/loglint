@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	register.Plugin("loglint", newPlugin)
+	register.Plugin(analyzer.AnalyzerName, newPlugin)
 }
 
 func newPlugin(conf any) (register.LinterPlugin, error) {
@@ -23,7 +23,7 @@ func newPlugin(conf any) (register.LinterPlugin, error) {
 
 	runner := rules.NewRunner()
 	if err := runner.Init(confMap); err != nil {
-		return nil, fmt.Errorf("failed to initialize loglint rules: %w", err)
+		return nil, fmt.Errorf("failed to initialize %s rules: %w", analyzer.AnalyzerName, err)
 	}
 
 	return &loglintPlugin{runner: runner}, nil

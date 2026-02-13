@@ -14,11 +14,13 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
+const AnalyzerName = "loglint"
+
 // New создаёт анализатор, захватывая runner.
 func New(runner *rules.Runner) *analysis.Analyzer {
 	return &analysis.Analyzer{
-		Name:     "loglint",
-		Doc:      "checks log messages for best practices",
+		Name:     AnalyzerName,
+		Doc:      "reports suspicious or non-standard log messages",
 		Run:      makeRun(runner),
 		Requires: []*analysis.Analyzer{inspect.Analyzer},
 	}
