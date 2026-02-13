@@ -14,7 +14,6 @@ type SlogLogger struct {
 }
 
 func NewSlogLogger() Logger {
-	// TODO: проверить мб чет не хватает
 	methods := []string{
 		"Debug",
 		"DebugContext",

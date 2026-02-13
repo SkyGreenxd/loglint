@@ -1,8 +1,9 @@
 package loggers
 
 import (
-	"fmt"
 	"sync"
+
+	"github.com/SkyGreenxd/loglint/pkg/e"
 )
 
 var (
@@ -23,7 +24,7 @@ func Register(logger Logger) {
 	defer globalLoggerRegistry.mu.Unlock()
 
 	if _, exists := globalLoggerRegistry.loggers[logger.Name()]; exists {
-		panic(fmt.Sprintf("logger %q already registered", logger.Name())) // todo: поч паника
+		panic(e.Wrap(logger.Name(), ErrLoggerRegistered))
 	}
 
 	globalLoggerRegistry.loggers[logger.Name()] = logger
