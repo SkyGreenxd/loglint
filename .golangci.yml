@@ -2,6 +2,7 @@ version: "2"
 
 issues:
   uniq-by-line: false
+  max-same-issues: 0
 
 linters:
   default: none
