@@ -22,7 +22,7 @@ func main() {
 	password := "sadasdsa"
 	apiKey := "shfjsdhf14814"
 	adminVal := "hdsjfhdsjfdsh"
-	slog.Info("user test: " + password) // want `\[sensitive\].*` `\[sensitive\].*`
+	slog.Info("skygreenxd test: " + password) // want `\[sensitive\].*` `\[sensitive\].*`
 	slog.Debug("test=" + apiKey)        // want `\[sensitive\].*`
 	slog.Info("admin: " + adminVal)     // want `\[sensitive\].*`
 	l.Info("тут тесты хех")             // want `\[sensitive\].*`

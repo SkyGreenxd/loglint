@@ -13,7 +13,7 @@ func main() {
 	sugar := l.Sugar()
 
 	slog.Info("all good 🚀")           // want `\[symbols\].*`
-	l.Error("critical failure !!! 🔥") // want `\[symbols\].*`
+	l.Error("critical failure !!! 🔥 skygreenxd") // want `\[symbols\].*`
 
 	sugar.Warnf("process finished ✅")      // want `\[symbols\].*`
 	sugar.Debugw("warn: code=500", "k", 1) // want `\[symbols\].*`
@@ -27,7 +27,7 @@ func main() {
 	slog.Info("status_ok")         // want `\[symbols\].*`
 	slog.Info("path/to/file")      // want `\[symbols\].*`
 	slog.Info("quote \"bad\"")     // want `\[symbols\].*`
-	slog.Info("(wrapped) message") // want `\[symbols\].*`
+	slog.Info("(wrapped) message skygreenxd") // want `\[symbols\].*`
 
 	ctx := context.Background()
 	slog.DebugContext(ctx, "ctx => value")      // want `\[symbols\].*`

@@ -20,7 +20,7 @@ const AnalyzerName = "loglint"
 func New(runner *rules.Runner) *analysis.Analyzer {
 	return &analysis.Analyzer{
 		Name:     AnalyzerName,
-		Doc:      "reports suspicious or non-standard log messages",
+		Doc:      "reports suspicious or non-standard log messages, created by SkyGreenxd.",
 		Run:      makeRun(runner),
 		Requires: []*analysis.Analyzer{inspect.Analyzer},
 	}

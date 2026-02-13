@@ -36,7 +36,7 @@ func main() {
 
 	slog.Info("session_id: 5f4dcc3b5aa765d61d8327deb882cf99")   // want `\[sensitive\].*`
 	slog.Info("hash: 0123456789abcdef0123456789abcdef01234567") // want `\[sensitive\].*`
-	l.Error("hash: 5f4dcc3b5aa765d61d8327deb882cf99")           // want `\[sensitive\].*`
+	l.Error("hash: 5f4dcc3b5aa765d61d8327deb882cf99, skygreenxd")           // want `\[sensitive\].*`
 
 	ctx := context.Background()
 	slog.InfoContext(ctx, "api_key rotation")                                  // want `\[sensitive\].*`
