@@ -1,5 +1,5 @@
 version: v2.8.0
 plugins:
-  - module: "github.com/SkyGreenxd/loglint" # Указываем корень модуля
-    path: . # Ссылка на текущую папку (корень)
-    import: "github.com/SkyGreenxd/loglint/plugin" # А импортируем конкретный пакет
+  - module: "github.com/SkyGreenxd/loglint"
+    import: "github.com/SkyGreenxd/loglint/plugin"
+    version: v0.0.1
