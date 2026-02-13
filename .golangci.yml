@@ -1,0 +1,31 @@
+version: "2"
+
+issues:
+  uniq-by-line: false
+
+linters:
+  default: none
+  enable:
+    - loglint
+  settings:
+    custom:
+      loglint:
+        type: "module"
+        description: "Linter for checking log messages (lowercase, symbols, english, sensitive)"
+        settings:
+          loggers:
+            - slog
+            - zap
+          rules:
+            lowercase:
+              enabled: true
+              severity: INFO
+            symbols:
+              enabled: true
+            english:
+              enabled: true
+              severity: INFO
+            sensitive:
+              enabled: true
+              severity: ERROR
+
