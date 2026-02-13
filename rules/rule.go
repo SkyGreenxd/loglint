@@ -88,3 +88,17 @@ func (b *BaseRule) NewIssue(pos token.Pos, message string) Issue {
 		Pos:      pos,
 	}
 }
+
+// String возвращает строковое представление Severity
+func (s Severity) String() string {
+	switch s {
+	case SeverityInfo:
+		return "INFO"
+	case SeverityWarning:
+		return "WARN"
+	case SeverityError:
+		return "ERROR"
+	default:
+		return "WARN"
+	}
+}
