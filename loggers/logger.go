@@ -3,6 +3,7 @@ package loggers
 import (
 	"go/ast"
 	"go/types"
+	"strings"
 
 	"golang.org/x/tools/go/analysis"
 )
@@ -89,19 +90,11 @@ func extractPathFromType(t types.Type) string {
 }
 
 // hasSuffix безопасно проверяет, является ли пакет суффиксом пути.
-// Учитывает границы папок, чтобы "my/zap" не совпало с "notza
 func hasSuffix(s, suffix string) bool {
-	if len(s) < len(suffix) {
-		return false
-	}
-
-	if s[len(s)-len(suffix):] != suffix {
-		return false
-	}
-
-	if len(s) == len(suffix) {
+	// Если строки равны - бинго
+	if s == suffix {
 		return true
 	}
-
-	return s[len(s)-len(suffix)-1] == '/'
+	// Если s длиннее и заканчивается на "/suffix"
+	return strings.HasSuffix(s, "/"+suffix)
 }
