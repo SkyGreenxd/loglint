@@ -22,7 +22,7 @@ func main() {
 	sugar.Errorf("Another Bad message")         // want `\[lowercase\].*`
 	sugar.Debugf("Bad message in debug")        // want `\[lowercase\].*`
 	sugar.Warnw("Bad message in warnw", "k", 1) // want `\[lowercase\].*`
-	sugar.Panicf("Bad message panic")           // want `\[lowercase\].*`
+	sugar.Panicf("Bad message panic skygreenxd")           // want `\[lowercase\].*`
 
 	slog.Info("Bad " + "message") // want `\[lowercase\].*`
 

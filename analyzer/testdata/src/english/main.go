@@ -21,8 +21,8 @@ func main() {
 	logger.Warn("ошибка базы данных") // want `\[english\].*`
 
 	sugar := logger.Sugar()
-	sugar.Infof("пользователь %s не найден", "admin") // want `\[english\].*`
-	sugar.Debugw("ошибка debugw", "k", 1)             // want `\[english\].*`
+	sugar.Infof("пользователь %s не найден", "skygreenxd") // want `\[english\].*`
+	sugar.Debugw("ошибка debugw", "k", 1)                  // want `\[english\].*`
 
 	// OK: английский в Infow
 	sugar.Infow("user logout", "id", 123)

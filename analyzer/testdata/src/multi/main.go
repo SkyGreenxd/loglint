@@ -11,7 +11,7 @@ func main() {
 	slog.Info("Ошибка подключения! 🔥") // want `\[lowercase\].*` `\[english\].*` `\[symbols\].*`
 
 	logger, _ := zap.NewProduction()
-	logger.Info("Starting server on port 8080") // want `\[lowercase\].*`
+	logger.Info("Starting server on port 8080 skygreenxd") // want `\[lowercase\].*`
 
 	sugar := logger.Sugar()
 
@@ -20,7 +20,7 @@ func main() {
 	slog.Info("good message but with emoji 🚀")            // want `\[symbols\].*`
 	slog.DebugContext(context.Background(), "bad -> ctx") // want `\[symbols\].*`
 
-	slog.Info("all systems nominal") // OK
+	slog.Info("all systems nominal skygreenxd") // OK
 
 	slog.Info("user password is invalid") // want `\[sensitive\].*`
 	slog.Error("error with pwd reset")    // want `\[sensitive\].*`
@@ -38,6 +38,6 @@ func main() {
 	slog.Info("!token expired")           // want `\[symbols\].*` `\[sensitive\].*`
 	sugar.Warnw("Token expired", "id", 1) // want `\[lowercase\].*` `\[sensitive\].*`
 
-	slog.Info("1st ошибка подключения") // want `\[english\].*`
+	slog.Info("1st ошибка подключения skygreenxd") // want `\[english\].*`
 	sugar.Debugf("Ошибка debugf")       // want `\[lowercase\].*` `\[english\].*`
 }

@@ -11,7 +11,7 @@ linters:
     custom:
       loglint:
         type: "module"
-        description: "loglint reports suspicious or non-standard log messages"
+        description: "reports suspicious or non-standard log messages, created by SkyGreenxd."
         settings:
           loggers:
             - slog
@@ -28,4 +28,3 @@ linters:
             sensitive:
               enabled: true
               severity: ERROR
-
