@@ -14,7 +14,7 @@ CUSTOM_GCL    = $(PROJECT_DIR)/custom-gcl
 .PHONY: all
 all: .install-linter ## Build and run custom golangci-lint with loglint
 	$(GOLANGCI_LINT) custom -v
-	./$(CUSTOM_GCL) run ./...
+	$(CUSTOM_GCL) run ./...
 
 .PHONY: test
 test: ## Run all tests
