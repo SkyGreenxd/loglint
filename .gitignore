@@ -32,3 +32,4 @@ go.work.sum
 .vscode/
 /example
 custom-gcl
+.DS_Store
