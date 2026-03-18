@@ -47,6 +47,10 @@ func (runner *Runner) Init(settings map[string]any) error {
 		runner.loggers = loggerRegistry.GetByNames(cfg.Loggers)
 	}
 
+	if len(cfg.Rules) == 0 {
+		cfg.Rules = defaultRuleConfigs()
+	}
+
 	for name, ruleCfg := range cfg.Rules {
 		if !ruleCfg.Enabled {
 			continue
@@ -61,6 +65,26 @@ func (runner *Runner) Init(settings map[string]any) error {
 	}
 
 	return nil
+}
+
+func defaultRuleConfigs() map[string]RuleConfig {
+	return map[string]RuleConfig{
+		LowercaseName: {
+			Enabled:  true,
+			Severity: "INFO",
+		},
+		SymbolsName: {
+			Enabled: true,
+		},
+		EnglishName: {
+			Enabled:  true,
+			Severity: "INFO",
+		},
+		SensitiveName: {
+			Enabled:  true,
+			Severity: "ERROR",
+		},
+	}
 }
 
 // Register распределяет правила по категориям
