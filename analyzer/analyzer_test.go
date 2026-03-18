@@ -96,6 +96,18 @@ func TestGroups(t *testing.T) {
 			},
 			pkg: "optional",
 		},
+		{
+			name: "Dynamic Message Handling",
+			settings: map[string]any{
+				"rules": map[string]any{
+					"lowercase": map[string]any{"enabled": false},
+					"sensitive": map[string]any{"enabled": true},
+					"symbols":   map[string]any{"enabled": true},
+					"english":   map[string]any{"enabled": false},
+				},
+			},
+			pkg: "dynamic",
+		},
 	}
 
 	for _, tt := range tests {
