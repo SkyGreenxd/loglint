@@ -88,22 +88,28 @@ func extractLogMessage(call *ast.CallExpr, pass *analysis.Pass) (string, token.P
 	}
 
 	for _, arg := range call.Args {
-		message, ok := buildMessage(arg, pass)
-		if !ok || message == "" {
+		built := buildMessage(arg, pass)
+		if !built.ok || !built.hasStaticPart || built.text == "" {
 			continue
 		}
 
-		return message, arg.Pos()
+		return built.text, arg.Pos()
 	}
 
 	return "", token.NoPos
 }
 
+type messageBuildResult struct {
+	text          string
+	ok            bool
+	hasStaticPart bool
+}
+
 // buildMessage рекурсивно собирает строковое значение из выражения,
 // учитывая константы, литералы и конкатенацию.
-func buildMessage(expr ast.Expr, pass *analysis.Pass) (string, bool) {
+func buildMessage(expr ast.Expr, pass *analysis.Pass) messageBuildResult {
 	if tv, ok := pass.TypesInfo.Types[expr]; ok && tv.Value != nil && tv.Value.Kind() == constant.String {
-		return constant.StringVal(tv.Value), true
+		return messageBuildResult{text: constant.StringVal(tv.Value), ok: true, hasStaticPart: true}
 	}
 
 	switch e := expr.(type) {
@@ -112,13 +118,17 @@ func buildMessage(expr ast.Expr, pass *analysis.Pass) (string, bool) {
 			break
 		}
 
-		left, lok := buildMessage(e.X, pass)
-		right, rok := buildMessage(e.Y, pass)
-		if !lok && !rok {
-			return "", false
+		left := buildMessage(e.X, pass)
+		right := buildMessage(e.Y, pass)
+		if !left.ok && !right.ok {
+			return messageBuildResult{}
 		}
 
-		return left + right, true
+		return messageBuildResult{
+			text:          left.text + right.text,
+			ok:            true,
+			hasStaticPart: left.hasStaticPart || right.hasStaticPart,
+		}
 	case *ast.BasicLit:
 		if e.Kind != token.STRING {
 			break
@@ -126,18 +136,20 @@ func buildMessage(expr ast.Expr, pass *analysis.Pass) (string, bool) {
 
 		unquoted, err := strconv.Unquote(e.Value)
 		if err != nil {
-			return e.Value, true
+			return messageBuildResult{text: e.Value, ok: true, hasStaticPart: true}
 		}
-		return unquoted, true
+		return messageBuildResult{text: unquoted, ok: true, hasStaticPart: true}
 	}
 
 	if tv, ok := pass.TypesInfo.Types[expr]; ok && tv.Type != nil {
 		if types.Identical(tv.Type, types.Typ[types.String]) {
-			return "<value>", true
+			// Маркируем динамическую строку безопасным плейсхолдером без пунктуации,
+			// но не считаем её статической частью сообщения.
+			return messageBuildResult{text: "value", ok: true, hasStaticPart: false}
 		}
 	}
 
-	return "", false
+	return messageBuildResult{}
 }
 
 // reportIssue отправляет найденную проблему в отчет анализатора pass.
